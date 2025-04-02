@@ -19,6 +19,14 @@ prog_mark_pos  = None    # 全局变量，当前钓鱼进度的标记坐标点�
 fishbar_begend = [0, 0]  # 全局变量，钓鱼条的起始和终止位置，格式为 [begin, end]
 screen_shot    = None    # 全局变量，对当前钓鱼条画面的截图
 
+# 校准用参数
+bool_mark_debug = False
+fish_mark_x_offset = 0
+fish_mark_y_offset = 0
+prog_mark_x_offset = 0
+prog_mark_y_offset = 0
+
+
 def fish(icon_pos) :
     # 获取钓鱼进度条矩形在屏幕上外界矩形左上和右下的坐标
     bar_region = locate.cal_progress_bar_pos(icon_pos[0], icon_pos[1])
@@ -178,8 +186,8 @@ def cal_mark_pos(bar_region) :
         off_len = center_pos[0] * 0.88
         sample_pt_x += off_len * math.cos(math.radians(180 - i * (180 / (sample_pt_num + 1))))
         sample_pt_y -= off_len * math.sin(math.radians(180 - i * (180 / (sample_pt_num + 1))))
-        fish_mark_pos[i-1][0] = sample_pt_x
-        fish_mark_pos[i-1][1] = sample_pt_y
+        fish_mark_pos[i-1][0] = sample_pt_x + fish_mark_x_offset
+        fish_mark_pos[i-1][1] = sample_pt_y + fish_mark_y_offset
         
         screenshot[int(sample_pt_y)][int(sample_pt_x)] = 128
 
@@ -188,8 +196,8 @@ def cal_mark_pos(bar_region) :
         off_len = center_pos[0] * 0.65
         sample_pt_x += off_len * math.cos(math.radians(180 - i * (180 / (sample_pt_num + 1))))
         sample_pt_y -= off_len * math.sin(math.radians(180 - i * (180 / (sample_pt_num + 1))))
-        prog_mark_pos[i-1][0] = sample_pt_x
-        prog_mark_pos[i-1][1] = sample_pt_y
+        prog_mark_pos[i-1][0] = sample_pt_x + prog_mark_x_offset
+        prog_mark_pos[i-1][1] = sample_pt_y + prog_mark_y_offset
 
         screenshot[int(sample_pt_y)][int(sample_pt_x)] = 128
     
@@ -247,25 +255,39 @@ def cal_fishbar_len() :
             break
 
     # 打印检测钓鱼条位置是否正确
-    # show_str_debug = "\r"
-    # for i in range(1, 36) :
-    #     if i == fish_position:
-    #         show_str_debug += 'F'
-    #     elif i >= fishbar_begend[0] and i <= fishbar_begend[1] :
-    #         show_str_debug += '#'
-    #     else :
-    #         show_str_debug += '-'
-    # print(show_str_debug)
+    if bool_mark_debug :
+        show_str_debug = "\r"
+        for i in range(1, 36) :
+            if i == fish_position:
+                show_str_debug += 'F'
+            elif i >= fishbar_begend[0] and i <= fishbar_begend[1] :
+                show_str_debug += '#'
+            else :
+                show_str_debug += '-'
+        print(show_str_debug)
 
 
+pic_index = 0
 
 # 获取钓鱼条区域的截图
 def get_screenshot_inregion(bar_region) :
     global screen_shot
+    global pic_index
+    global bool_mark_debug
+
     # 先在bar_region区域截图，使用ORB提取特征点检测鱼在截图中可能的位置
     screenshot = pg.screenshot(region=(bar_region[0], bar_region[1], bar_region[2] - bar_region[0], bar_region[3] - bar_region[1]))
     screen_shot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2GRAY)
 
+    # 用于标记点的校准
+    if bool_mark_debug :
+        screenshot = np.where(screen_shot[..., :] < 150, 0, 255)
+        for i in range(len(fish_mark_pos)) :
+            screenshot[int(fish_mark_pos[i][1])][int(fish_mark_pos[i][0])] = 128
+            screenshot[int(prog_mark_pos[i][1])][int(prog_mark_pos[i][0])] = 128
+
+        cv2.imwrite(f"test/{pic_index}_two.jpg", screenshot)
+        pic_index += 1
 
 
 # 通过平均灰度判断钓鱼是否结束
