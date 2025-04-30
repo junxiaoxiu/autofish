@@ -114,6 +114,10 @@ def detect_fish_pos() :
     matches = bf.knnMatch(desp1, desp2, 2, None)
     matches = sorted(matches, key = lambda x : x[0].distance)
 
+    if bool_mark_debug == True :
+        img_debug = cv2.drawMatches(screen_shot, screenshot_keypt, fish_pic, fish_keypt, matches[0], None, flags=cv2.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS)
+        cv2.imwrite("./pic/keypoints_match.jpg", img_debug)
+        
     # 统计三个匹配点的中心点
     average_pt_x, average_pt_y = 0, 0
     # print(screenshot_keypt[matches[0][0].queryIdx].pt)
