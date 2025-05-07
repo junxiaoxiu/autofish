@@ -19,10 +19,16 @@ prog_mark_pos  = None    # 全局变量，当前钓鱼进度的标记坐标点�
 fishbar_begend = [0, 0]  # 全局变量，钓鱼条的起始和终止位置，格式为 [begin, end]
 screen_shot    = None    # 全局变量，对当前钓鱼条画面的截图
 
-# 校准用参数
+# 调试可视化开关
 bool_mark_debug = False
+# 采样点校准开关
+mark_point_calibration = True
+# 钓鱼条采样点校准参数
+fish_radius = 0.88
 fish_mark_x_offset = 0
 fish_mark_y_offset = 0
+# 蓄力条采样点校准参数
+prog_radius = 0.65
 prog_mark_x_offset = 0
 prog_mark_y_offset = 0
 
@@ -168,6 +174,8 @@ def mousedown_or_up() :
 def cal_mark_pos(bar_region) : 
     global fish_mark_pos
     global prog_mark_pos
+    global fish_radius
+    global prog_radius
 
     fish_mark_pos = [[0, 0] for i in range(1, sample_pt_num + 1)]
     prog_mark_pos = [[0, 0] for i in range(1, sample_pt_num + 1)]
@@ -187,7 +195,7 @@ def cal_mark_pos(bar_region) :
     # 在0°至180°之间均匀采样sample_pt_num个点，记录这些点在截图中的坐标
     for i in range(1, sample_pt_num + 1) :
         sample_pt_x, sample_pt_y = center_pos
-        off_len = center_pos[0] * 0.88
+        off_len = center_pos[0] * fish_radius
         sample_pt_x += off_len * math.cos(math.radians(180 - i * (180 / (sample_pt_num + 1))))
         sample_pt_y -= off_len * math.sin(math.radians(180 - i * (180 / (sample_pt_num + 1))))
         fish_mark_pos[i-1][0] = sample_pt_x + fish_mark_x_offset
@@ -197,7 +205,7 @@ def cal_mark_pos(bar_region) :
 
         sample_pt_x, sample_pt_y = center_pos
         sample_pt_y -= height * 0.2
-        off_len = center_pos[0] * 0.65
+        off_len = center_pos[0] * prog_radius
         sample_pt_x += off_len * math.cos(math.radians(180 - i * (180 / (sample_pt_num + 1))))
         sample_pt_y -= off_len * math.sin(math.radians(180 - i * (180 / (sample_pt_num + 1))))
         prog_mark_pos[i-1][0] = sample_pt_x + prog_mark_x_offset
@@ -277,21 +285,26 @@ pic_index = 0
 def get_screenshot_inregion(bar_region) :
     global screen_shot
     global pic_index
-    global bool_mark_debug
+    global mark_point_calibration
 
     # 先在bar_region区域截图，使用ORB提取特征点检测鱼在截图中可能的位置
     screenshot = pg.screenshot(region=(bar_region[0], bar_region[1], bar_region[2] - bar_region[0], bar_region[3] - bar_region[1]))
     screen_shot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2GRAY)
 
     # 用于标记点的校准
-    if bool_mark_debug :
+    if mark_point_calibration == True :
         screenshot = np.where(screen_shot[..., :] < 150, 0, 255)
         for i in range(len(fish_mark_pos)) :
-            screenshot[int(fish_mark_pos[i][1])][int(fish_mark_pos[i][0])] = 128
-            screenshot[int(prog_mark_pos[i][1])][int(prog_mark_pos[i][0])] = 128
+            for x_off in range(-1, 2):
+                for y_off in range(-1, 2):
+                    screenshot[int(fish_mark_pos[i][1]) + x_off][int(fish_mark_pos[i][0]) + y_off] = 128
+                    screenshot[int(prog_mark_pos[i][1]) + x_off][int(prog_mark_pos[i][0]) + y_off] = 190
 
-        cv2.imwrite(f"test/{pic_index}_two.jpg", screenshot)
+        cv2.imwrite(f"./test/{pic_index}.jpg", screenshot)
         pic_index += 1
+        # 截图回绕，避免忘记关闭程序无限截图
+        if pic_index > 1000 :
+            pic_index = 0
 
 
 # 通过平均灰度判断钓鱼是否结束
