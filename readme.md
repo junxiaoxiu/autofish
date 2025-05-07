@@ -15,7 +15,7 @@
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
     width="70%"
-    src="./example-pic/fish.gif">
+    src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/fish.gif">
     <br>
     <div style="color:orange; 
     display: inline-block;
@@ -34,7 +34,7 @@
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
     width="50%"
-    src="./example-pic/sample_point.jpg">
+    src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/sample_point.jpg">
     <br>
     <div style="color:orange; 
     display: inline-block;
@@ -55,7 +55,7 @@
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
     width="50%"
-    src="./example-pic/charge.jpg">
+    src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/sample_point.jpg">
     <br>
     <div style="color:orange; 
     display: inline-block;
@@ -74,7 +74,7 @@
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
     width="50%"
-    src="./example-pic/binarization.jpg">
+    src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/binarization.jpg">
     <br>
     <div style="color:orange; 
     display: inline-block;
@@ -89,7 +89,7 @@
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
     width="70%"
-    src="./example-pic/draw_matches.jpg">
+    src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/draw_matches.jpg">
     <br>
     <div style="color:orange; 
     display: inline-block;
@@ -107,7 +107,7 @@
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
     width="80%"
-    src="./example-pic/debug.gif">
+    src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/debug.gif">
     <br>
     <div style="color:orange; 
     display: inline-block;
@@ -148,11 +148,11 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 程序受限于本人水平，做不到自适应分辨率，故在程序运行前需要手动对识别目标进行截图，需要进行截图的图像依次见下图。
 
 <center class="half">
-    <img src="./example-pic/screenshot1.png" height=180/>
-    <img src="./example-pic/screenshot2.png" height=180/>
+    <img src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/screenshot1.png" height=180/>
+    <img src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/screenshot2.png" height=180/>
 </center>
 <center class="half">
-    <img src="./example-pic/screenshot3.jpg" height=180/>
+    <img src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/screenshot3.jpg" height=180/>
 </center>
 <center>
     <div style="color:orange; 
@@ -191,7 +191,7 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
  从中挑选出两张典型的图像：蓄力部分和钓鱼部分(见图8图9)
 
 <center class="half">
-    <img src="./example-pic/charging.jpg" height=150/>
+    <img src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/charging.jpg" height=150/>
 </center>
 <center>
     <div style="color:orange; 
@@ -201,7 +201,7 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
     padding: 2px;">图8 蓄力时截图</div>
 </center>
 <center class="half">
-    <img src="./example-pic/fishing.jpg" height=150/>
+    <img src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/fishing.jpg" height=150/>
 </center>
 <center>
     <div style="color:orange; 
@@ -234,7 +234,7 @@ prog_mark_y_offset = 50
 
 
 <center class="half">
-    <img src="./example-pic/screenshot4.jpg" height=150/>
+    <img src="https://github.com/junxiaoxiu/autofish/blob/main/example-pic/screenshot4.jpg" height=150/>
 </center>
 <center>
     <div style="color:orange; 
