@@ -198,8 +198,8 @@ def cal_mark_pos(bar_region) :
         off_len = center_pos[0] * fish_radius
         sample_pt_x += off_len * math.cos(math.radians(180 - i * (180 / (sample_pt_num + 1))))
         sample_pt_y -= off_len * math.sin(math.radians(180 - i * (180 / (sample_pt_num + 1))))
-        fish_mark_pos[i-1][0] = sample_pt_x + fish_mark_x_offset
-        fish_mark_pos[i-1][1] = sample_pt_y + fish_mark_y_offset
+        fish_mark_pos[i-1][0] = sample_pt_x + fish_mark_y_offset
+        fish_mark_pos[i-1][1] = sample_pt_y + fish_mark_x_offset
         
         screenshot[int(sample_pt_y)][int(sample_pt_x)] = 128
 
@@ -208,8 +208,8 @@ def cal_mark_pos(bar_region) :
         off_len = center_pos[0] * prog_radius
         sample_pt_x += off_len * math.cos(math.radians(180 - i * (180 / (sample_pt_num + 1))))
         sample_pt_y -= off_len * math.sin(math.radians(180 - i * (180 / (sample_pt_num + 1))))
-        prog_mark_pos[i-1][0] = sample_pt_x + prog_mark_x_offset
-        prog_mark_pos[i-1][1] = sample_pt_y + prog_mark_y_offset
+        prog_mark_pos[i-1][0] = sample_pt_x + prog_mark_y_offset
+        prog_mark_pos[i-1][1] = sample_pt_y + prog_mark_x_offset
 
         screenshot[int(sample_pt_y)][int(sample_pt_x)] = 128
     

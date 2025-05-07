@@ -224,12 +224,12 @@ prog_radius = 0.65  # 蓄力条采样点偏置半径
 prog_mark_x_offset = 0
 prog_mark_y_offset = 0
 ```
-根据图中坐标系的指示修改对应的偏置参数，偏置单位为像素，如想将蓄力条的采样点整体向左侧移动30个像素，则将```prog_mark_x_offset```变量后的数字改为```-30```；如想将蓄力条的采样点整体向下侧移动50个像素，则将```prog_mark_y_offset```变量后的数字改为```50```，修改后代码和示例图图下：
+根据图中坐标系的指示修改对应的偏置参数，偏置单位为像素，如想将蓄力条的采样点整体向下移动30个像素，则将```prog_mark_x_offset```变量后的数字改为```30```；如想将蓄力条的采样点整体向左侧移动50个像素，则将```prog_mark_y_offset```变量后的数字改为```-50```，修改后代码和示例图图下：
 
 ```python
 # 参数修改示例
-prog_mark_x_offset = -30
-prog_mark_y_offset = 50
+prog_mark_x_offset = 30
+prog_mark_y_offset = -50
 ```
 
 
